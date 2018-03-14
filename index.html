@@ -40,6 +40,7 @@
           <a class="sidebar__link" href="#etched-text"><span>Etched text</span></a>
           <a class="sidebar__link" href="#gradient-text"><span>Gradient text</span></a>
           <a class="sidebar__link" href="#hairline-border"><span>Hairline border</span></a>
+          <a class="sidebar__link" href="#not-selector"><span>:not selector</span></a>
           <a class="sidebar__link" href="#overflow-scroll-gradient"><span>Overflow scroll gradient</span></a>
           <a class="sidebar__link" href="#pretty-text-underline"><span>Pretty text underline</span></a>
           <a class="sidebar__link" href="#reset-all-styles"><span>Reset all styles</span></a>
@@ -63,6 +64,7 @@
         </section>
         <section data-type="other" class="sidebar__section">
           <h4 class="sidebar__section-heading">other</h4>
+          <a class="sidebar__link" href="#counter"><span>Counter</span></a>
           <a class="sidebar__link" href="#custom-variables"><span>Custom variables</span></a>
         </section>
       </div>
@@ -75,7 +77,9 @@
           <p class="header__description">
             A curated collection of useful CSS snippets you can understand in 30 seconds or less.
           </p>
-          <a class="github-button header__github-button" href="https://github.com/atomiks/30-seconds-of-css" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star atomiks/30-seconds-of-css on GitHub">Star</a>
+          <div class="header__github-button-wrapper">
+            <a class="github-button header__github-button" href="https://github.com/atomiks/30-seconds-of-css" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star atomiks/30-seconds-of-css on GitHub">Star</a>
+          </div>
         </div>
       </header>
       <main class="main" id="main">
@@ -364,7 +368,6 @@
 }
 .constant-width-to-height-ratio::before {
   content: '';
-  display: block;
   padding-top: 100%;
   float: left;
 }
@@ -386,7 +389,6 @@
               }
               .snippet-demo__constant-width-to-height-ratio::before {
                 content: '';
-                display: block;
                 padding-top: 100%;
                 float: left;
               }
@@ -410,6 +412,86 @@
             <p><span class="snippet__support-note">✅ No caveats.</span></p>
 
             <!-- tags: layout -->
+          </div>
+          <div class="snippet">
+            <h3 id="counter"><span>Counter</span><span class="tags__tag snippet__tag" data-type="visual"><i data-feather="eye"></i>visual</span><span class="tags__tag snippet__tag" data-type="other"><i data-feather="tag"></i>other</span></h3>
+            <p>Counters are, in essence, variables maintained by CSS whose values may be incremented by CSS rules to track how many times they're used.</p>
+            <h4 data-type="HTML">HTML</h4><pre><code class="lang-html">&lt;ul&gt;
+  &lt;li&gt;List item&lt;/li&gt;
+  &lt;li&gt;List item&lt;/li&gt;
+  &lt;li&gt;List item&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+            <h4 data-type="CSS">CSS</h4><pre><code class="lang-css">ul {
+  counter-reset: counter;
+}
+li::before {
+  counter-increment: counter;
+  content: counters(counter, '.') ' ';
+}
+</code></pre>
+            <h4>Demo</h4>
+            <div class="snippet-demo">
+              <div class="snippet-demo__countable-section">
+                <ul>
+                  <li>List item</li>
+                  <li>List item</li>
+                  <li>
+                    List item
+                    <ul>
+                      <li>List item</li>
+                      <li>List item</li>
+                      <li>List item</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <style>
+              .snippet-demo__countable-section ul {
+                counter-reset: counter;
+                list-style-type: none;
+              }
+              .snippet-demo__countable-section li::before {
+                counter-increment: counter;
+                content: counters(counter, '.') ' ';
+              }
+            </style>
+            <h4>Explanation</h4>
+            <p>You can create a ordered list using any type of HTML.</p>
+            <ol>
+              <li>
+                <p><code>counter-reset</code> Initializes a counter, the value is the name of the counter. By default, the counter starts in 0. This property can also be used to change its value to any specific number.</p>
+              </li>
+              <li>
+                <p><code>counter-increment</code> Used in element that will be countable. Once <code>counter-reset</code> initialized, a counter's value can be increased or decreased.</p>
+              </li>
+              <li>
+                <p><code>counter(name, style)</code> Displays the value of a section counter. Generally used in a <code>content</code> property. This function can recieve two parameters, the first as the name of the counter and the second one can be <code>decimal</code>                  or <code>upper-roman</code> (<code>decimal</code> by default).</p>
+              </li>
+              <li>
+                <p><code>counters(counter, string, style)</code> Displays the value of a section counter. Generally used in a <code>content</code> property. This function can recieve three parameters, the first as the name of the counter, the second one
+                  you can include a string which comes after the counter and the third one can be <code>decimal</code> or <code>upper-roman</code> (<code>decimal</code> by default).</p>
+              </li>
+              <li>
+                <p>A CSS counter can be especially useful for making outlined lists, because a new instance of the counter is automatically created in child elements. Using the <code>counters()</code> function, separating text can be inserted between different
+                  levels of nested counters.</p>
+              </li>
+            </ol>
+            <h4>Browser support</h4>
+            <div>
+              <div class="snippet__browser-support">
+                98.4%
+              </div>
+            </div>
+            <p><span class="snippet__support-note">✅ No caveats.</span></p>
+            <ul>
+              <li>
+                <a href="https://caniuse.com/#feat=css-counters" target="_blank">https://caniuse.com/#feat=css-counters</a>
+              </li>
+            </ul>
+
+            <!-- tags: visual, other -->
           </div>
           <div class="snippet">
             <h3 id="custom-scrollbar"><span>Custom scrollbar</span><span class="tags__tag snippet__tag" data-type="visual"><i data-feather="eye"></i>visual</span></h3>
@@ -1500,6 +1582,70 @@ var y = e.pageY - btn.offsetTop - btn.offsetParent.offsetTop
             </ul>
 
             <!-- tags: visual, interactivity -->
+          </div>
+          <div class="snippet">
+            <h3 id="not-selector"><span>:not selector</span><span class="tags__tag snippet__tag" data-type="visual"><i data-feather="eye"></i>visual</span></h3>
+            <p>The <code>:not</code> psuedo selector is useful for styling a group of elements, while leaving the last (or specified) element unstyled.</p>
+            <h4 data-type="HTML">HTML</h4><pre><code class="lang-html">&lt;ul class="css-not-selector-shortcut"&gt;
+  &lt;li&gt;One&lt;/li&gt;
+  &lt;li&gt;Two&lt;/li&gt;
+  &lt;li&gt;Three&lt;/li&gt;
+  &lt;li&gt;Four&lt;/li&gt;
+  &lt;li&gt;Five&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+            <h4 data-type="CSS">CSS</h4><pre><code class="lang-css">.css-not-selector-shortcut {
+  display: flex;
+}
+li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0 0.75rem;
+}
+li:not(:last-child) {
+  border-right: 2px solid #d2d5e4;
+}
+</code></pre>
+            <h4>Demo</h4>
+            <div class="snippet-demo">
+              <ul class="snippet-demo__css-not-selector-shortcut">
+                <li>One</li>
+                <li>Two</li>
+                <li>Three</li>
+                <li>Four</li>
+                <li>Five</li>
+              </ul>
+            </div>
+            <style>
+              .snippet-demo__css-not-selector-shortcut {
+                display: flex;
+                padding: 0;
+              }
+              .snippet-demo__css-not-selector-shortcut li {
+                list-style-type: none;
+                margin: 0;
+                padding: 0 0.75rem;
+              }
+              .snippet-demo__css-not-selector-shortcut li:not(:last-child) {
+                border-right: 2px solid #d2d5e4
+              }
+            </style>
+            <h4>Explanation</h4>
+            <p><code>li:not(:last-child)</code> specifies that the styles should apply to all <code>li</code> elements except the <code>:last-child</code>.</p>
+            <h4>Browser support</h4>
+            <div>
+              <div class="snippet__browser-support">
+                98.4%
+              </div>
+            </div>
+            <p><span class="snippet__support-note">✅ No caveats.</span></p>
+            <ul>
+              <li>
+                <a href="https://caniuse.com/#feat=css-sel3" target="_blank">https://caniuse.com/#feat=css-sel3</a>
+              </li>
+            </ul>
+
+            <!-- tags: visual -->
           </div>
           <div class="snippet">
             <h3 id="overflow-scroll-gradient"><span>Overflow scroll gradient</span><span class="tags__tag snippet__tag" data-type="visual"><i data-feather="eye"></i>visual</span></h3>
